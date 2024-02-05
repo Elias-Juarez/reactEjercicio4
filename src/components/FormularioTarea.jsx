@@ -1,10 +1,21 @@
 import { Button, Form } from "react-bootstrap";
 import ListaTareas from "./ListaTareas";
+import { useState } from "react";
 
 const FormularioTarea = () => {
+  const [tarea, setTarea] = useState("");
+  const [tareas, setTareas] = useState([]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("dentro de funcion");
+    setTareas([...tareas, tarea]);
+    setTarea("");
+  };
+
   return (
     <section>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group
           className="mb-3 d-flex"
           controlId="exampleForm.ControlInput1"
@@ -15,6 +26,8 @@ const FormularioTarea = () => {
             minLength={3}
             maxLength={50}
             required
+            onChange={(e) => setTarea(e.target.value)}
+            value={tarea}
           />
           <Button variant="dark" className="ms-3" type="submit">
             Agregar
